@@ -15,19 +15,7 @@ export class ProductService {
         @Inject(BackendUri) private _backendUri) { }
 
     getProducts(filter: ProductFilter = undefined): Observable<Product[]> {
-        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
-        | Yellow Path                                                      |
-        |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
-        | Pide al servidor que te retorne los productos filtrados por      |
-        | estado.                                                          |
-        |                                                                  |
-        | En la documentación de 'JSON Server' tienes detallado cómo       |
-        | filtrar datos en tus peticiones, pero te ayudo igualmente. La    |
-        | querystring debe tener estos parámetros:                         |
-        |                                                                  |
-        |   - Búsqueda por estado:                                         |
-        |       state=x (siendo x el estado)                               |
-        |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+        
         let filtersToAdd: string = '';
 
         if (filter) {
@@ -41,6 +29,10 @@ export class ProductService {
 
             if (filter.text) {
                 filtersToAdd += "&q=" + filter.text;
+            }
+
+            if (filter.state) {
+                filtersToAdd += "&state=" + filter.state;
             }
         }
 

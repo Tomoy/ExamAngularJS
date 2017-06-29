@@ -12,13 +12,6 @@
         {{ product.category.name }}
       </span>
 
-      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
-      | Blue Path                                                        |
-      |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
-      | Una vez tengas creado el Pipe PublicationDatePipe, úsalo con la  |
-      | fecha de publicación.                                            |
-      |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-
       <span>
         {{ product.publishedDate | publicationDate }}
       </span>
@@ -37,7 +30,7 @@
     <button *ngIf="product.state === 'selling'"
             (click)="showPurchaseWarning()"
             class="button large expanded">
-      Comprar por {{ product.price }} €
+      Comprar por {{ product.price | currency:'EUR':true:'1.2' }}
     </button>
     <button (click)="goBack()" class="warning button expanded">Volver</button>
   </div>

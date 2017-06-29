@@ -21,6 +21,7 @@ export class ProductResetComponent implements OnDestroy, OnInit {
     private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
+      console.log("Entraaa");
     this._productStream$
       .switchMap((productId: number) => this._productService.setProductAvailable(productId))
       .subscribe((product: Product) => this._updateProduct(product));
