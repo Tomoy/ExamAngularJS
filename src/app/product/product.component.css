@@ -1,3 +1,18 @@
 img:hover {
   cursor: pointer;
 }
+
+.likeButton {
+    outline: none;
+    background-size: cover;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    margin: 0px 5px; 
+    position: absolute;
+}
+
+.button {
+    padding: 10px 20px 10px 10px;
+    line-height: 20px;
+}

@@ -4,6 +4,7 @@
   </div>
   <div class="medium-8 columns">
     <h3>{{ product.name }}</h3>
+    <input type="image" [src]="imgUrl" (click)="likeProduct()" id="likeButton" />
     <p>
       <span class="label" [ngClass]="{
         'info': product.category.id === 1,

@@ -1,16 +1,13 @@
 <div *ngIf="data">
-  <img (click)="productSelected(data.id)" [src]="data.photo" class="thumbnail" />
-  
-  <button
-    (click)="productSelected(data.id)"
-    class="button expanded"
-    [class.success]="data.state === 'selling'"
-    [class.secondary]="data.state === 'sold'">
+    <img (click)="productSelected(data.id)" [src]="data.photo" class="thumbnail" />
+    
+    <button (click)="productSelected(data.id)" class="button expanded" [class.success]="data.state === 'selling'" [class.secondary]="data.state === 'sold'">
       <span *ngIf="data.state === 'selling'">
         Comprar por {{ data.price | currency:'EUR':true:'1.2' }} 
       </span>
       <span *ngIf="data.state === 'sold'">
         Ver detalles
       </span>
+      <img [src]="imgUrl" class="likeButton" />
     </button>
 </div>
