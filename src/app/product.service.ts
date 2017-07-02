@@ -15,10 +15,12 @@ export class ProductService {
         @Inject(BackendUri) private _backendUri) { }
 
     getProducts(filter: ProductFilter = undefined): Observable<Product[]> {
-        
+
         let filtersToAdd: string = '';
 
         if (filter) {
+
+            filtersToAdd = "order=ASC";
 
             if (filter.category) {
                 //Para que si el usuario selecciona la primer categoría '-', muestre todos los productos. Solo, si es una categoría de las existentes, 1,2 o 3, filtra.
@@ -34,10 +36,32 @@ export class ProductService {
             if (filter.state) {
                 filtersToAdd += "&state=" + filter.state;
             }
+
+            if (filter.minPrice) {
+                filtersToAdd += "&price_gte=" + filter.minPrice;
+            }
+
+            if (filter.maxPrice) {
+                filtersToAdd += "&price_lte=" + filter.maxPrice;
+            }
+
+            if (filter.order) {
+
+                let orderFilter = "publishedDate";
+
+                if (filter.order === "text") {
+                    orderFilter = "name";
+                } else if (filter.order === "price") {
+                    orderFilter = "price";
+                }
+
+                filtersToAdd += "&_sort=" + orderFilter + "&_order=ASC";
+            }
         }
 
         return this._http
-            .get(`${this._backendUri}/products?_sort=publishedDate&_order=DESC` + filtersToAdd)
+            .get(`${this._backendUri}/products?` + filtersToAdd)
+            //.get(`${this._backendUri}/products?_sort=publishedDate&_order=DESC` + filtersToAdd)
             .map((data: Response): Product[] => Product.fromJsonToList(data.json()));
     }
 

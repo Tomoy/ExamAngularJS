@@ -1,11 +1,30 @@
 <div>
   <div class="row">
-    <div class="small-6 medium-2 large-3 columns">
+    <div class="small-6 medium-2 large-2 columns">
       <input [(ngModel)]="productFilter.text" type="text" placeholder="Pe. Uncharted">
     </div>
-    <div class="small-6 medium-2 large-3 columns">
+    <div class="small-6 medium-2 large-2 columns">
       <select [(ngModel)]="productFilter.category">
         <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+      </select>
+    </div>
+    <div class="small-6 medium-2 large-8 columns">
+        En venta
+        <input type="checkbox" [(ngModel)]="productFilter.state">
+    </div>
+  </div>
+  <div class="row">
+      <div class="small-6 medium-2 large-2 columns">
+        <input type="text" [(ngModel)]="productFilter.minPrice" placeholder="Precio Min.">
+    </div>
+    <div class="small-6 medium-2 large-2 columns">
+        <input type="text" [(ngModel)]="productFilter.maxPrice" placeholder="Precio Max.">
+    </div>
+    <div class="small-6 medium-2 large-2 columns">
+      <select [(ngModel)]="productFilter.order">
+        <option value="-" selected>-</option>
+        <option value="price">Precio Asc</option>
+        <option value="text">Alfabéticamente Asc</option>
       </select>
     </div>
     <div class="small-12 medium-3 large-2 columns">
