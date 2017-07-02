@@ -31,33 +31,7 @@ export class ProductDetailsComponent implements OnDestroy, OnInit {
         this._route.data.forEach((data: { product: Product }) => this.product = data.product);
         window.scrollTo(0, 0);
 
-        //Me fijo en el localStorage si el producto fue likeado por el usuario y seteo la imágen correspondiente para el botón
-        this.imgUrl = environment.likeButtonUrl;
-        this.isProductLiked = false;
-
-        if (typeof localStorage !== 'undefined') {
-
-            let likes = localStorage.getItem("likes");
-
-            if (likes) {
-
-                //Parseo el string del localStorage a un Objeto de tipo ProductLikes
-                let likesObjs:Array<ProductLikes> = JSON.parse(likes);
-
-                //Busco el producto en el que estoy y me fijo si está likeado.
-                likesObjs.forEach(likeObj => {
-                    if (likeObj.productId === this.product.id) {
-                        if (likeObj.isLiked) {
-                            this.isProductLiked = true;
-                            this.imgUrl = environment.likeButtonLikedUrl;
-                        }
-                    }
-                });
-            }
-
-        } else {
-            alert("Error: Tu navegador no soporta local storage para guardar los likes");
-        }
+        this.setLikeStateForProduct(this.product.id);
     }
 
     ngOnDestroy(): void {
@@ -134,6 +108,42 @@ export class ProductDetailsComponent implements OnDestroy, OnInit {
         //Convierto a string el objeto ProductLikes y lo guardo en el localStorage
         let likesObjectToString = JSON.stringify(likesObjs);
         localStorage.setItem(environment.likesLocalStorage, likesObjectToString);
+    }
+
+    //Actualizo el estado del boton de like, porque se cambió de producto en productos relacionados
+    productChanged(productId:string) {
+        this.setLikeStateForProduct(parseInt(productId));
+    }
+
+    setLikeStateForProduct(productId:number) {
+
+        //Me fijo en el localStorage si el producto fue likeado por el usuario y seteo la imágen correspondiente para el botón
+        this.imgUrl = environment.likeButtonUrl;
+        this.isProductLiked = false;
+
+        if (typeof localStorage !== 'undefined') {
+
+            let likes = localStorage.getItem("likes");
+
+            if (likes) {
+
+                //Parseo el string del localStorage a un Objeto de tipo ProductLikes
+                let likesObjs:Array<ProductLikes> = JSON.parse(likes);
+
+                //Busco el producto en el que estoy y me fijo si está likeado.
+                likesObjs.forEach(likeObj => {
+                    if (likeObj.productId === productId) {
+                        if (likeObj.isLiked) {
+                            this.isProductLiked = true;
+                            this.imgUrl = environment.likeButtonLikedUrl;
+                        }
+                    }
+                });
+            }
+
+        } else {
+            alert("Error: Tu navegador no soporta local storage para guardar los likes");
+        }
     }
 
 }

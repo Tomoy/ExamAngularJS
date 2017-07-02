@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { BackendUri } from './app-settings';
 import { Product } from './product';
+import { User } from './user';
 import { ProductFilter } from './product-filter';
 
 @Injectable()
@@ -61,7 +62,13 @@ export class ProductService {
 
         return this._http
             .get(`${this._backendUri}/products?` + filtersToAdd)
-            //.get(`${this._backendUri}/products?_sort=publishedDate&_order=DESC` + filtersToAdd)
+            .map((data: Response): Product[] => Product.fromJsonToList(data.json()));
+    }
+
+    getProductsForUser(userId:string): Observable<Product[]>  {
+        
+        return this._http
+            .get(`${this._backendUri}/products?seller.id=` + userId)
             .map((data: Response): Product[] => Product.fromJsonToList(data.json()));
     }
 

@@ -9,4 +9,8 @@
       <strong>{{ user?.name }}</strong> | {{ user?.nick }}
     </p>
   </div>
+  <div>
+      <h5> Mas productos de este usuario </h5>
+      <a *ngFor="let userProduct of userProducts" (click)="relatedProductClicked(userProduct.id)"><img [src] = "userProduct.photo" class="userProduct"/></a>
+  </div>
 </div>
